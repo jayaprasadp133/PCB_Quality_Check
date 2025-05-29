@@ -46,7 +46,7 @@ The system takes an image of a PCB and compares it with a reference image to ide
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/PCB_Quality_Check.git
+git clone https://github.com/jayaprasadp133/PCB_Quality_Check.git
 cd PCB_Quality_Check
 ```
 
