@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PCB Quality Check</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        input[type="file"] {
+            display: block;
+            margin: 0.5rem 0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+        .results {
+            margin-top: 2rem;
+        }
+        .images {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .images img {
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .output-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <header>Quality Control of PCB Using Image Processing</header>
+    <div class="container">
+        <form id="uploadForm" enctype="multipart/form-data">
+            <label for="original">Upload Original Arduino Image:</label>
+            <input type="file" id="original" name="original" accept="image/*">
+
+            <label for="sample">Upload Sample Arduino Image:</label>
+            <input type="file" id="sample" name="sample" accept="image/*">
+
+            <button id="analyzeButton" type="button" onclick="analyzeImages()">Analyze (Keypad D)</button>
+            <button type="button" onclick="showEdges()">Show Edge Comparison (Keypad C)</button>
+        </form>
+
+        <div class="results">
+            <div class="output-text" id="resultText">Result will appear here.</div>
+            <div class="images">
+                <div>
+                    <p>Original Image (Edge View):</p>
+                    <img id="originalEdge" src="" alt="Original Edge">
+                </div>
+                <div>
+                    <p>Sample Image (Edge View):</p>
+                    <img id="sampleEdge" src="" alt="Sample Edge">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function analyzeImages() {
+            const original = document.getElementById('original').files[0];
+            const sample = document.getElementById('sample').files[0];
+            const resultText = document.getElementById('resultText');
+
+            if (!original || !sample) {
+                alert("Please upload both images.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("original", original);
+            formData.append("sample", sample);
+
+            try {
+                // Step 1: Upload images and process edges
+                const uploadResponse = await fetch('/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const uploadResult = await uploadResponse.json();
+
+                if (!uploadResponse.ok) {
+                    resultText.textContent = uploadResult.message || "Upload failed.";
+                    resultText.style.color = 'red';
+                    return;
+                }
+
+                // Step 2: Trigger comparison analysis
+                const compareResponse = await fetch('/trigger_analysis', {
+                    method: 'POST'
+                });
+
+                const compareResult = await compareResponse.json();
+
+                if (!compareResponse.ok) {
+                    resultText.textContent = compareResult.message || "Analysis failed.";
+                    resultText.style.color = 'red';
+                    return;
+                }
+
+                // Show result
+                resultText.textContent = `${compareResult.message} (Score: ${compareResult.score.toFixed(2)})`;
+                resultText.style.color = compareResult.result === 0 ? 'green' : 'red';
+
+            } catch (err) {
+                console.error(err);
+                resultText.textContent = "Unexpected error during analysis.";
+                resultText.style.color = 'red';
+            }
+        }
+
+        function showEdges() {
+            document.getElementById('originalEdge').src = "/static/edges/original_edge.jpg?" + new Date().getTime();
+            document.getElementById('sampleEdge').src = "/static/edges/sample_edge.jpg?" + new Date().getTime();
+        }
+    </script>
+</body>
+</html>
