@@ -56,5 +56,27 @@ PCB_Quality_Check_final/
 ```bash
 git clone https://github.com/YOUR_USERNAME/PCB_Quality_Check.git
 cd PCB_Quality_Check
+```
 
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Run the Main Script
+
+```bash
+python main.py
+```
+
+
+---
+
+Let me know if your project has:
+- GUI (like using Tkinter or PyQt),
+- a different language (e.g., MATLAB or C++), or
+- any ML/CNN integration.
+
+I can tailor the README accordingly.
 
