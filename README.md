@@ -36,3 +36,25 @@ The system takes an image of a PCB and compares it with a reference image to ide
 
 ## 📁 Folder Structure
 
+PCB_Quality_Check_final/
+│
+├── reference_images/ # Ideal PCB images
+├── test_images/ # PCBs to check for defects
+├── output_images/ # Processed output with defect highlights
+├── utils/ # Custom utility functions (if any)
+├── main.py # Main script to run the QC process
+├── requirements.txt # Dependencies
+└── README.md # Project documentation
+
+
+---
+
+## ▶️ How to Run
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/PCB_Quality_Check.git
+cd PCB_Quality_Check
+
+
