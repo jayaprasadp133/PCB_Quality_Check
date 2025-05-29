@@ -36,15 +36,7 @@ The system takes an image of a PCB and compares it with a reference image to ide
 
 ## 📁 Folder Structure
 
-PCB_Quality_Check_final/
-│
-├── reference_images/ # Ideal PCB images
-├── test_images/ # PCBs to check for defects
-├── output_images/ # Processed output with defect highlights
-├── utils/ # Custom utility functions (if any)
-├── main.py # Main script to run the QC process
-├── requirements.txt # Dependencies
-└── README.md # Project documentation
+<pre> PCB_Quality_Check_final/ ├── reference_images/ # Folder containing ideal/reference PCB images ├── test_images/ # Folder containing PCB images to test ├── output_images/ # Folder where output images with defect highlights are saved ├── utils/ # Optional: Python scripts for helper functions ├── main.py # Main script to run the quality check ├── requirements.txt # List of Python dependencies └── README.md # Project documentation </pre>
 
 
 ---
