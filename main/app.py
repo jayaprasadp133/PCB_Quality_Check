@@ -3,8 +3,7 @@ import cv2
 import numpy as np
 import os
 import time
-
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")
 UPLOAD_FOLDER = 'uploads'
 EDGE_FOLDER = 'static/edges'
 

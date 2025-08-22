@@ -16,10 +16,10 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 WiFiClient wifiClient;   // Declare this globally or at the top of your code
 
-const char* ssid = "Redmi";     // Replace with your mobile hotspot SSID
-const char* password = "123456789";  // Replace with your mobile hotspot passwor
+const char* ssid = "Redmi Note 10 Pro Max";     // Replace with your mobile hotspot SSID
+const char* password = "12345678";  // Replace with your mobile hotspot passwor
 
-const String server = "http://192.168.189.165:5000";  // http://192.168.41.165:5000 http://192.168.111.165:5000 http://192.168.59.165:5000 Replace with your Flask server IP http://192.168.145.165:5000
+const String server = "http://10.245.184.165:5000";  //http://10.245.184.165:5000http://127.0.0.1:5000 http://192.168.41.165:5000 http://192.168.111.165:5000 http://192.168.59.165:5000 Replace with your Flask server IP http://192.168.145.165:5000
 
 const int buzzerPin = D7;
 const int greenLedPin = D6;
